@@ -58,4 +58,19 @@ class CouponServiceTests {
                 .containsExactlyInAnyOrder("MLA1");
     }
 
+    @Test
+    public void calculate_twoItemsWithDecimalPricesEqualToAmount_returnsBothItems() {
+        Map<String, Float> items = Map
+                .ofEntries(
+                        entry("MLA1", 100.11f),
+                        entry("MLA2", 100.11f)
+                );
+        Float amount = 200.22f;
+
+        List<String> couponItems = couponService.calculate(items, amount);
+
+        assertThat(couponItems)
+                .containsExactlyInAnyOrder("MLA1", "MLA2");
+    }
+
 }

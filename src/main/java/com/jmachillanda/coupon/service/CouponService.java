@@ -2,7 +2,6 @@ package com.jmachillanda.coupon.service;
 
 import com.jmachillanda.coupon.dto.CouponDto;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,7 @@ public class CouponService {
 
                 CouponDto newCoupon = new CouponDto(coupon.getTotal() + actualItemPrice, newCouponDto);
 
-                if (newCoupon.getTotal() < amount) {
+                if (newCoupon.getTotal() <= amount) {
                     newCalculatedCoupons.add(newCoupon);
 
                     if (newCoupon.getTotal() == amount) {

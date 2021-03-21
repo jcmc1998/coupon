@@ -1,6 +1,5 @@
-package com.jmachillanda.coupon;
+package com.jmachillanda.coupon.service;
 
-import com.jmachillanda.coupon.service.CouponService;
 import java.util.List;
 import java.util.Map;
 import static java.util.Map.entry;

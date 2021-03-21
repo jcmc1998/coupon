@@ -40,7 +40,22 @@ class CouponServiceTests {
         List<String> couponItems = couponService.calculate(items, amount);
 
         assertThat(couponItems)
-                .containsExactlyInAnyOrder("MLA1", "MLA2", "MLA3", "MLA4", "MLA5");
+                .containsExactlyInAnyOrder("MLA1", "MLA2", "MLA4", "MLA5");
+    }
+
+    @Test
+    public void calculate_twoItemsWhosePriceIsOverCouponAmount_returnsOneItem() {
+        Map<String, Float> items = Map
+                .ofEntries(
+                        entry("MLA1", 100.00f),
+                        entry("MLA2", 210.00f)
+                );
+        Float amount = 120.00f;
+
+        List<String> couponItems = couponService.calculate(items, amount);
+
+        assertThat(couponItems)
+                .containsExactlyInAnyOrder("MLA1");
     }
 
 }

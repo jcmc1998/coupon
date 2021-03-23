@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +26,7 @@ public class CouponService {
         this.itemListAdapter = itemListAdapter;
     }
 
+    @Cacheable(value = "coupons", key = "#couponDto.itemIds")
     public CouponRecommendationDto getRecommendation(CouponDto couponDto) {
         List<ItemDto> items = itemService.getItemPrices(couponDto.getItemIds());
         List<ItemDto> itemsWithLowerPrice = getItemsWithLowerPriceThanAmount(items, couponDto.getAmount());
@@ -74,7 +78,9 @@ public class CouponService {
     }
 
     private List<ItemDto> getItemsWithLowerPriceThanAmount(List<ItemDto> items, Float amount) {
-        return items.stream().filter(item -> item.getPrice() < amount).collect(Collectors.toList());
+        return items.stream()
+                .filter(item -> item.getPrice() < amount)
+                .collect(Collectors.toList());
     }
 
 //    Nivel 1

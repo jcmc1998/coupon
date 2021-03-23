@@ -12,6 +12,7 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("items");
+        return new ConcurrentMapCacheManager("coupons");
     }
+
 }

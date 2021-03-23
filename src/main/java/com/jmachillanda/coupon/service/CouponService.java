@@ -24,7 +24,7 @@ public class CouponService {
         this.itemListAdapter = itemListAdapter;
     }
 
-    @Cacheable(value = "coupons", key = "#couponDto.itemIds")
+    @Cacheable(value = "coupons")
     public CouponRecommendationDto getRecommendation(CouponDto couponDto) {
         List<ItemDto> items = itemService.getItemPrices(couponDto.getItemIds());
         List<ItemDto> itemsWithLowerPrice = getItemsWithLowerPriceThanAmount(items, couponDto.getAmount());

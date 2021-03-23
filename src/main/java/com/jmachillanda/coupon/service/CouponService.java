@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import org.springframework.cache.annotation.Cacheable;
@@ -26,7 +27,7 @@ public class CouponService {
 
     @Cacheable(value = "coupons")
     public CouponRecommendationDto getRecommendation(CouponDto couponDto) {
-        List<ItemDto> items = itemService.getItemPrices(couponDto.getItemIds());
+        List<ItemDto> items = itemService.findItemsById(couponDto.getItemIds());
         List<ItemDto> itemsWithLowerPrice = getItemsWithLowerPriceThanAmount(items, couponDto.getAmount());
         Map<String, Float> itemsMap = itemListAdapter.getItemIdsAndPrices(itemsWithLowerPrice);
 
@@ -76,9 +77,16 @@ public class CouponService {
     }
 
     private List<ItemDto> getItemsWithLowerPriceThanAmount(List<ItemDto> items, Float amount) {
-        return items.stream()
+        List<ItemDto> itemsWithLowerPriceThanAmount = items
+                .stream()
                 .filter(item -> item.getPrice() < amount)
                 .collect(Collectors.toList());
+
+        if (itemsWithLowerPriceThanAmount.isEmpty()) {
+            throw new NoSuchElementException("Insufficient amount to buy at least one item");
+        } else {
+            return itemsWithLowerPriceThanAmount;
+        }
     }
 
 //    Nivel 1

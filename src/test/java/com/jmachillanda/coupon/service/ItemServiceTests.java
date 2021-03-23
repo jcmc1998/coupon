@@ -26,7 +26,7 @@ class ItemServiceTests {
         List<String> itemIds = asList(firstItem.getId(), secondItem.getId());
         when(itemRepository.findItemsById(itemIds)).thenReturn(asList(firstItem, secondItem));
 
-        List<ItemDto> items = itemService.getItemPrices(itemIds);
+        List<ItemDto> items = itemService.findItemsById(itemIds);
 
         assertThat(items).containsExactly(firstItem, secondItem);
     }

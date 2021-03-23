@@ -1,21 +1,16 @@
 package com.jmachillanda.coupon.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CouponDto {
 
     private List<String> itemIds;
-    private float total;
+    private float amount;
 
-    public CouponDto() {
-        this(0f, new ArrayList<>());
-    }
-
-    public CouponDto(float total, List<String> itemIds) {
-        this.total = total;
+    public CouponDto(List<String> itemIds, float amount) {
         this.itemIds = itemIds;
+        this.amount = amount;
     }
 
     public List<String> getItemIds() {
@@ -27,14 +22,12 @@ public class CouponDto {
         this.itemIds = itemIds;
     }
 
-    @JsonProperty("total")
-    public float getTotal() {
-        return total;
+    public float getAmount() {
+        return amount;
     }
 
-    @JsonProperty("amount")
-    public void setTotal(float total) {
-        this.total = total;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
 }

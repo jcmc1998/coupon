@@ -4,8 +4,6 @@ import com.jmachillanda.coupon.dto.ItemDto;
 import com.jmachillanda.coupon.repository.ItemRepository;
 import static java.util.Arrays.asList;
 import java.util.List;
-import java.util.Map;
-import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.when;
@@ -28,13 +26,9 @@ class ItemServiceTests {
         List<String> itemIds = asList(firstItem.getId(), secondItem.getId());
         when(itemRepository.findItemsById(itemIds)).thenReturn(asList(firstItem, secondItem));
 
-        Map<String, Float> items = itemService.getItemPrices(itemIds);
+        List<ItemDto> items = itemService.getItemPrices(itemIds);
 
-        assertThat(items)
-                .containsExactly(
-                        entry(secondItem.getId(), secondItem.getPrice()),
-                        entry(firstItem.getId(), firstItem.getPrice())
-                );
+        assertThat(items).containsExactly(firstItem, secondItem);
     }
 
 }

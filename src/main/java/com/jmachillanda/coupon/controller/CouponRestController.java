@@ -3,6 +3,7 @@ package com.jmachillanda.coupon.controller;
 import com.jmachillanda.coupon.dto.CouponDto;
 import com.jmachillanda.coupon.dto.CouponRecommendationDto;
 import com.jmachillanda.coupon.service.CouponService;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/coupon")
 public class CouponRestController {
 
-    Logger logger = LoggerFactory.getLogger(CouponRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(CouponRestController.class);
 
     private final CouponService couponService;
 
@@ -23,10 +24,13 @@ public class CouponRestController {
     }
 
     @PostMapping()
-    public CouponRecommendationDto getRecommendation(@RequestBody CouponDto couponDto) {
-        logger.info("POST /api/coupon | INPUT: " + couponDto);
+    public CouponRecommendationDto getRecommendation(@Valid @RequestBody CouponDto couponDto) {
         CouponRecommendationDto couponRecommendation = couponService.getRecommendation(couponDto);
-        logger.info("POST /api/coupon | OUTPUT: " + couponRecommendation);
+
+        if (logger.isInfoEnabled()) {
+            logger.info("POST /api/coupon | INPUT: " + couponDto);
+            logger.info("POST /api/coupon | OUTPUT: " + couponRecommendation);
+        }
         return couponRecommendation;
     }
 

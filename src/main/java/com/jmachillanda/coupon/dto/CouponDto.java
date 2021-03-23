@@ -2,10 +2,14 @@ package com.jmachillanda.coupon.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 public class CouponDto {
 
+    @NotEmpty(message = "Item list cannot be null or empty")
     private List<String> itemIds;
+    @Positive(message = "Coupon amount must be greater than zero")
     private float amount;
 
     public CouponDto(List<String> itemIds, float amount) {

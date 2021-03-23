@@ -28,4 +28,9 @@ public class CouponRecommendationDto {
         this.total = total;
     }
 
+    @Override
+    public String toString() {
+        return "itemIds=" + itemIds.toString() + ", total=" + total;
+    }
+
 }

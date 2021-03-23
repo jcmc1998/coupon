@@ -30,4 +30,9 @@ public class CouponDto {
         this.amount = amount;
     }
 
+    @Override
+    public String toString() {
+        return "itemIds=" + itemIds.toString() + ", amount=" + amount;
+    }
+
 }

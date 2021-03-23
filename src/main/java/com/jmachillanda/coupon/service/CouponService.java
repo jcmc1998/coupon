@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,9 +24,8 @@ public class CouponService {
         this.itemListAdapter = itemListAdapter;
     }
 
-    @Cacheable(value = "coupons")
     public CouponRecommendationDto getRecommendation(CouponDto couponDto) {
-        List<ItemDto> items = itemService.findItemsById(couponDto.getItemIds());
+        List<ItemDto> items = itemService.findItemsByIds(couponDto.getItemIds());
         List<ItemDto> itemsWithLowerPrice = getItemsWithLowerPriceThanAmount(items, couponDto.getAmount());
         Map<String, Float> itemsMap = itemListAdapter.getItemIdsAndPrices(itemsWithLowerPrice);
 
@@ -79,7 +77,7 @@ public class CouponService {
     private List<ItemDto> getItemsWithLowerPriceThanAmount(List<ItemDto> items, Float amount) {
         List<ItemDto> itemsWithLowerPriceThanAmount = items
                 .stream()
-                .filter(item -> item.getPrice() < amount)
+                .filter(item -> item.getPrice() <= amount)
                 .collect(Collectors.toList());
 
         if (itemsWithLowerPriceThanAmount.isEmpty()) {

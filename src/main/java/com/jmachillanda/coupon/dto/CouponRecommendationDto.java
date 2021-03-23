@@ -4,8 +4,8 @@ import java.util.List;
 
 public class CouponRecommendationDto {
 
-    private List<String> itemIds;
-    private float total;
+    private final List<String> itemIds;
+    private final float total;
 
     public CouponRecommendationDto(List<String> itemIds, float total) {
         this.itemIds = itemIds;
@@ -16,16 +16,8 @@ public class CouponRecommendationDto {
         return itemIds;
     }
 
-    public void setItemIds(List<String> itemIds) {
-        this.itemIds = itemIds;
-    }
-
     public float getTotal() {
         return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
     }
 
     @Override

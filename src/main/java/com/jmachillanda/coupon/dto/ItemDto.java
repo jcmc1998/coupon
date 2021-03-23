@@ -17,16 +17,8 @@ public class ItemDto {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public Float getPrice() {
         return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
     }
 
 }
